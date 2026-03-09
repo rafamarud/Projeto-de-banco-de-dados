@@ -1,0 +1,5 @@
+Exercício de revisão:
+É necessario modelar um esquema de banco de dados para um fluxo ou fumcionalidade de um sistema de submissão de projetos em uma intuição. Em uma instituição, há professores/pesquisadores que submetem projetos de extensão.
+Um projeto possui título, resumo, coordenador (professor/pesquisador), equipe (relaçao de professores/pesquisadores), área de pesquisa (TÉCNOLOGIA, SAÚDE, HUMANOS e SOCIAL), uma instituição responsável. Um instituição tem
+nome, sigla e endereço. Um pesquisador/professor possui um nome, email, cpf, número de celular. Todo o projeto submetido precisa passar por uma avaliação. A avaliação é composta por uma submissão de projeto, um avaliador 
+responsável (professor/pesquisador), um avalidador suplente (professor/professor), campo para parecer, data limite de parecer, resultado (APROVADO, REPROVADO, EM CORREÇÃO).
