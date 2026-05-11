@@ -133,8 +133,6 @@ Resultado:
 
 * seleciona salários entre 20 e 30
 
----
-
 Negação:
 
 WHERE salario NOT BETWEEN 1000 AND 3500;
@@ -454,28 +452,19 @@ Resultado:
 * mostra departamentos com empregados ganhando mais de 3000
 
 ==================================================
-23. ORDEM DAS CLÁUSULAS SQL
-===========================
+23. COUNT (NOVO)
+================
 
-Ordem mais comum:
+COUNT conta registros de uma tabela.
 
-SELECT
-FROM
-WHERE
-GROUP BY
-HAVING
-ORDER BY
+Exemplo:
 
-==================================================
-24. ESTRUTURA COMPLETA
-======================
+SELECT COUNT(*)
+FROM Ranking_Semanal;
 
-SELECT coluna
-FROM tabela
-WHERE condição
-GROUP BY coluna
-HAVING condição
-ORDER BY coluna;
+Resultado:
+
+* retorna o número total de linhas da tabela
 
 ==================================================
 FIM DO RESUMO
