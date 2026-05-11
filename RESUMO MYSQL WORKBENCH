@@ -1,0 +1,482 @@
+RESUMO SQL PARA ESTUDO
+
+==================================================
+
+1. SELECT
+   ==================================================
+
+O comando SELECT é utilizado para consultar dados de uma tabela.
+
+Selecionar todos os campos:
+
+SELECT * FROM Departamento;
+
+Selecionar colunas específicas:
+
+SELECT Empregado.nome, Empregado.funcao
+FROM Empregado;
+
+---
+
+SELECT = seleciona dados
+FROM = informa de qual tabela os dados serão retirados
+
+==================================================
+2. WHERE
+========
+
+O WHERE é utilizado para filtrar registros.
+
+Exemplo:
+
+SELECT Empregado.nome
+FROM Empregado
+WHERE Empregado.funcao = 'GERENTE';
+
+---
+
+Operadores Lógicos:
+
+=   igual
+
+> maior
+> =  maior ou igual
+> <   menor
+> <=  menor ou igual
+> <>  diferente
+
+==================================================
+3. OPERAÇÕES MATEMÁTICAS
+========================
+
+Podemos realizar cálculos diretamente no SELECT.
+
+Exemplo:
+
+SELECT Departamento.nome,
+Departamento.orcamento * 12
+FROM Departamento;
+
+Neste exemplo:
+
+* o orçamento mensal está sendo multiplicado por 12
+* o resultado representa o orçamento anual
+
+==================================================
+4. ALIAS (APELIDOS)
+===================
+
+Alias serve para renomear colunas na saída da consulta.
+
+Exemplo:
+
+SELECT Departamento.nome "DEPARTAMENTO",
+Departamento.orcamento * 12 "ORCAMENTO ANUAL"
+FROM Departamento;
+
+Resultado:
+
+* o nome da coluna aparecerá como DEPARTAMENTO
+* o cálculo aparecerá como ORCAMENTO ANUAL
+
+==================================================
+5. DISTINCT
+===========
+
+DISTINCT remove valores repetidos.
+
+Exemplo:
+
+SELECT DISTINCT Empregado.funcao
+FROM Empregado;
+
+Resultado:
+
+* mostra cada função apenas uma vez
+
+==================================================
+6. ORDER BY
+===========
+
+ORDER BY ordena resultados.
+
+Ordem crescente (A → Z):
+
+SELECT Empregado.nome
+FROM Empregado
+ORDER BY Empregado.nome;
+
+Ordem decrescente (Z → A):
+
+SELECT Empregado.nome
+FROM Empregado
+ORDER BY Empregado.nome DESC;
+
+---
+
+ASC  = crescente
+DESC = decrescente
+
+==================================================
+7. BETWEEN
+==========
+
+BETWEEN verifica valores entre dois limites.
+
+Exemplo:
+
+SELECT Empregado.nome, Empregado.salario
+FROM Empregado
+WHERE Empregado.salario BETWEEN 20 AND 30;
+
+Resultado:
+
+* seleciona salários entre 20 e 30
+
+---
+
+Negação:
+
+WHERE salario NOT BETWEEN 1000 AND 3500;
+
+Resultado:
+
+* seleciona valores fora desse intervalo
+
+==================================================
+8. IN
+=====
+
+IN verifica se um valor pertence a uma lista.
+
+Exemplo:
+
+SELECT Empregado.nome
+FROM Empregado
+WHERE Empregado.Departamento_idDepartamento IN (3,5);
+
+Resultado:
+
+* seleciona empregados dos departamentos 3 e 5
+
+==================================================
+9. LIKE
+=======
+
+LIKE pesquisa padrões de texto.
+
+Exemplo:
+
+SELECT Empregado.nome
+FROM Empregado
+WHERE Empregado.nome LIKE 'L%';
+
+Resultado:
+
+* seleciona nomes que começam com L
+
+---
+
+Símbolos:
+
+%  = vários caracteres
+_  = um único caractere
+
+==================================================
+10. NULL
+========
+
+NULL representa ausência de valor.
+
+Verificar valores nulos:
+
+SELECT Empregado.nome
+FROM Empregado
+WHERE Empregado.comissao IS NULL;
+
+Verificar valores não nulos:
+
+WHERE comissao IS NOT NULL;
+
+==================================================
+11. AND / OR
+============
+
+AND exige que ambas condições sejam verdadeiras.
+
+Exemplo:
+
+SELECT Empregado.nome
+FROM Empregado
+WHERE salario BETWEEN 3400 AND 5000
+AND funcao = 'balconista';
+
+---
+
+OR exige apenas uma condição verdadeira.
+
+Exemplo:
+
+SELECT Empregado.nome
+FROM Empregado
+WHERE salario BETWEEN 3400 AND 5000
+OR funcao = 'balconista';
+
+==================================================
+12. FUNÇÕES DE TEXTO
+====================
+
+LOWER:
+transforma texto em minúsculo.
+
+SELECT LOWER(Empregado.nome)
+FROM Empregado;
+
+---
+
+UPPER:
+transforma texto em maiúsculo.
+
+SELECT UPPER(Empregado.nome)
+FROM Empregado;
+
+---
+
+SUBSTRING:
+extrai parte de um texto.
+
+SELECT SUBSTRING(Empregado.nome,1,5)
+FROM Empregado;
+
+Resultado:
+
+* mostra apenas os 5 primeiros caracteres
+
+---
+
+CONCAT:
+concatena textos.
+
+SELECT CONCAT(nome, funcao)
+FROM Empregado;
+
+==================================================
+13. FUNÇÕES AGREGADAS
+=====================
+
+AVG  = média
+MIN  = menor valor
+MAX  = maior valor
+SUM  = soma
+COUNT = quantidade de registros
+
+---
+
+Média:
+
+SELECT AVG(Empregado.comissao)
+FROM Empregado;
+
+---
+
+Soma:
+
+SELECT SUM(Empregado.comissao)
+FROM Empregado;
+
+---
+
+Maior valor:
+
+SELECT MAX(Empregado.comissao)
+FROM Empregado;
+
+---
+
+Menor valor:
+
+SELECT MIN(Empregado.comissao)
+FROM Empregado;
+
+==================================================
+14. GROUP BY
+============
+
+GROUP BY agrupa registros.
+
+Exemplo:
+
+SELECT Empregado.Departamento_idDepartamento,
+AVG(Empregado.comissao)
+FROM Empregado
+GROUP BY Empregado.Departamento_idDepartamento;
+
+Resultado:
+
+* calcula a média por departamento
+
+==================================================
+15. HAVING
+==========
+
+HAVING filtra grupos após o GROUP BY.
+
+Exemplo:
+
+SELECT Empregado.Departamento_idDepartamento,
+AVG(Empregado.comissao)
+FROM Empregado
+GROUP BY Empregado.Departamento_idDepartamento
+HAVING COUNT(*) > 2;
+
+Resultado:
+
+* mostra apenas departamentos com mais de 2 empregados
+
+==================================================
+16. ALIAS DE TABELAS
+====================
+
+Alias simplifica nomes de tabelas.
+
+Exemplo:
+
+SELECT A.nome, A.funcao, B.nome
+FROM Empregado A, Departamento B
+WHERE A.idDepartamento =
+B.Departamento_idDepartamento;
+
+---
+
+A = Empregado
+B = Departamento
+
+==================================================
+17. AUTO RELACIONAMENTO
+=======================
+
+Uma tabela pode relacionar consigo mesma.
+
+Exemplo:
+
+SELECT A.idEmpregado,
+A.nome,
+A.funcao,
+B.nome "CHEFE"
+FROM Empregado A, Empregado B
+WHERE A.idGerente = B.idEmpregado;
+
+Resultado:
+
+* mostra empregado e seu gerente
+
+==================================================
+18. INSERT
+==========
+
+INSERT insere dados.
+
+Exemplo:
+
+INSERT INTO Departamento
+(DEPNUME,DEPNOME,DEPLOCA)
+VALUES
+(70,'PRODUCAO','RIO DE JANEIRO');
+
+==================================================
+19. UPDATE
+==========
+
+UPDATE altera registros.
+
+Exemplo:
+
+UPDATE Empregado
+SET salario = salario * 1.2
+WHERE salario < 1000;
+
+Resultado:
+
+* aumenta salários menores que 1000 em 20%
+
+==================================================
+20. DELETE
+==========
+
+DELETE remove registros.
+
+Exemplo:
+
+DELETE FROM Empregado
+WHERE salario > 5000;
+
+Resultado:
+
+* remove empregados com salário maior que 5000
+
+==================================================
+21. SUBCONSULTA (SUBQUERY)
+==========================
+
+Uma consulta dentro de outra consulta.
+
+Exemplo:
+
+SELECT A.nome, A.funcao
+FROM Empregado A
+WHERE 10000 IN (
+SELECT Departamento.orcamento
+FROM Departamento
+WHERE Departamento.idDepartamento =
+A.Departamento_idDepartamento
+);
+
+==================================================
+22. EXISTS
+==========
+
+EXISTS verifica se existem registros relacionados.
+
+Exemplo:
+
+SELECT A.nome
+FROM Departamento A
+WHERE EXISTS (
+SELECT *
+FROM Empregado
+WHERE Empregado.salario > 3000
+AND Empregado.Departamento_idDepartamento =
+A.idDepartamento
+);
+
+Resultado:
+
+* mostra departamentos com empregados ganhando mais de 3000
+
+==================================================
+23. ORDEM DAS CLÁUSULAS SQL
+===========================
+
+Ordem mais comum:
+
+SELECT
+FROM
+WHERE
+GROUP BY
+HAVING
+ORDER BY
+
+==================================================
+24. ESTRUTURA COMPLETA
+======================
+
+SELECT coluna
+FROM tabela
+WHERE condição
+GROUP BY coluna
+HAVING condição
+ORDER BY coluna;
+
+==================================================
+FIM DO RESUMO
+=============
